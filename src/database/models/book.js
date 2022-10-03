@@ -2,9 +2,7 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Book extends Model {
-    static associate(models) {
-      Book.belongsTo(models.User, { foreignKey: "borrowerId" });
-    }
+    static associate(models) {}
   }
   Book.init(
     {
@@ -14,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       score: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
         defaultValue: -1,
       },
