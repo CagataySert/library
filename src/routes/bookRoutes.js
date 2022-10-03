@@ -7,9 +7,8 @@ const router = express.Router();
 
 const { createBooks, getBooks } = bookController;
 
-router
-  .route("/books/:bookId?")
-  .post(validator("createBooks"), createBooks)
-  .get(getBooks);
+router.post("/books", validator("createBooks"), createBooks);
+
+router.get("/books/:bookId?", getBooks);
 
 export default router;
