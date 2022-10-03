@@ -19,7 +19,7 @@ module.exports = {
         allowNull: false,
         defaultValue: -1,
       },
-      doesAccessible: {
+      isAccessible: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: true,
