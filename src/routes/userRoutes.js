@@ -13,6 +13,10 @@ router.get("/users/:userId?", getUsers);
 
 router.post("/users/:userId/borrow/:bookId", borrowBook);
 
-router.post("/users/userId/return/:bookId", returnBook);
+router.post(
+  "/users/:userId/return/:bookId",
+  validator("returnBook"),
+  returnBook
+);
 
 export default router;
