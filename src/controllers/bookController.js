@@ -17,7 +17,7 @@ const getBooks = async (req, res) => {
 
     if (!bookId) {
       const result = await Book.findAll({
-        attributes: ["id", "name", "score"],
+        attributes: ["id", "name"],
       });
 
       return res.json(result);
