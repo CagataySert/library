@@ -13,6 +13,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      bookId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       userScore: {
         type: Sequelize.INTEGER,
       },

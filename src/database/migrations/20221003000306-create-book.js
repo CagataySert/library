@@ -15,12 +15,9 @@ module.exports = {
         allowNull: false,
       },
       score: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         allowNull: false,
         default: -1,
-      },
-      borrowerId: {
-        type: Sequelize.INTEGER,
       },
     });
   },
