@@ -1,21 +1,32 @@
 import express from "express";
 
 import { userRoutes, bookRoutes } from "./src/routes";
+import db from "./src/database/models";
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Middlewares
+// test db connection
+db.sequelize
+  .authenticate()
+  .then(() => {
+    console.log("DB Connection has been established successfully.");
+  })
+  .catch((error) => {
+    console.error("Unable to connect to the database: ", error);
+  });
+
+//Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/", userRoutes);
 app.use("/", bookRoutes);
-
-//Todo: Remove it, it is just a garbage.
-app.get("/test", (req, res) => {
-  res.send("Hello World!");
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to library application." });
 });
 
-app.listen(port, () => {
-  console.log(`Library Automation app listening on port: ${port}`);
+app.listen(PORT, () => {
+  console.log(`Library Automation app listening on port: ${PORT}`);
 });
