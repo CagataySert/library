@@ -7,10 +7,9 @@ const router = express.Router();
 
 const { createUsers, borrowBook, returnBook, getUsers } = userController;
 
-router
-  .route("/users/:userId?")
-  .post(validator("createUsers"), createUsers)
-  .get(getUsers);
+router.post("/users", validator("createUsers"), createUsers);
+
+router.get("/users/:userId?", getUsers);
 
 router.post("/:userId/borrow/:bookId", borrowBook);
 
