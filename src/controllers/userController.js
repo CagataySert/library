@@ -1,7 +1,4 @@
-import { User } from "../database/models";
-
-const borrowBook = (req, res) => res.send("Borrow Book");
-const returnBook = (req, res) => res.send("Return Book");
+import { User, LoanRecord, Book } from "../database/models";
 
 const createUsers = async (req, res) => {
   try {
@@ -31,6 +28,55 @@ const getUsers = async (req, res) => {
     });
 
     res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+};
+
+const borrowBook = async (req, res) => {
+  try {
+    const { userId, bookId } = req.params;
+
+    const book = await Book.findByPk(bookId);
+
+    if (!book) return res.sendStatus(404);
+
+    await LoanRecord.create({ bookId, name: book.name, borrowerId: userId });
+
+    res.sendStatus(204);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+};
+
+const updateBookAvgScore = async (bookId, score) => {
+  const book = await Book.findByPk(bookId);
+
+  const updatedAvgScore = book.score < 0 ? score : (book.score + score) / 2;
+
+  await Book.update({ score: updatedAvgScore }, { where: { id: bookId } });
+};
+
+const returnBook = async (req, res) => {
+  try {
+    const { userId, bookId } = req.params;
+    const { score } = req.body;
+
+    await LoanRecord.update(
+      { userScore: score },
+      {
+        where: {
+          bookId,
+          borrowerId: userId,
+        },
+      }
+    );
+
+    await updateBookAvgScore(bookId, score);
+
+    res.sendStatus(204);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
