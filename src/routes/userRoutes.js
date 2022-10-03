@@ -11,8 +11,8 @@ router.post("/users", validator("createUsers"), createUsers);
 
 router.get("/users/:userId?", getUsers);
 
-router.post("/:userId/borrow/:bookId", borrowBook);
+router.post("/users/:userId/borrow/:bookId", borrowBook);
 
-router.post("/userId/return/:bookId", returnBook);
+router.post("/users/userId/return/:bookId", returnBook);
 
 export default router;
