@@ -34,9 +34,21 @@ const getUsers = async (req, res) => {
   }
 };
 
+const checkUserIfExists = async (userId) => {
+  const user = await User.findByPk(userId);
+  return user;
+};
+
 const borrowBook = async (req, res) => {
   try {
     const { userId, bookId } = req.params;
+
+    const doesUserExist = await checkUserIfExists(userId);
+
+    if (!doesUserExist)
+      return res.json({
+        message: "Can not find any user related sended userId",
+      });
 
     const book = await Book.findByPk(bookId);
 
