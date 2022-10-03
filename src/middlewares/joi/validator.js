@@ -11,9 +11,11 @@ const validator = (schemaName) => {
     const { error, value } = schema.validate(data);
 
     if (error) {
+      console.log(error.message);
       res.status(422).json({
         message: "Invalid request",
         data,
+        error: error.message,
       });
     } else {
       next();
