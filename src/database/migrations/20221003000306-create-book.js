@@ -17,7 +17,12 @@ module.exports = {
       score: {
         type: Sequelize.FLOAT,
         allowNull: false,
-        default: -1,
+        defaultValue: -1,
+      },
+      doesAccessible: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
     });
   },
